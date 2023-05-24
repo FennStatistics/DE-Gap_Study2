@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <link href="{{ static 'global/empty.css'}}" rel="stylesheet">
+    <link href="{{ static 'global/css/custom.css'}}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Upcoming: One-Round Game
+{% endblock %}
+
+{% block content %}
+
+
+<p> You have nearly finished the game.  </p>
+
+
+<p> In this round, you will learn about the outcomes of the game before your choice. </p>
+<p>
+<strong> Please click next to continue with the last round.  </strong>
+</p>
+
+
+<button style="float: right; margin-top: 2vh;" class="otree-btn-next btn btn-primary" id="consent-next">Next</button>
+{% endblock %}
+
+

@@ -1,0 +1,100 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <link href="{{ static 'global/empty.css'}}" rel="stylesheet">
+    <link href="{{ static 'global/css/custom.css'}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<body>
+   
+    
+  
+
+    <div class="No-label">
+        
+       <h4> Current Round</h4>
+            <p style="text-align: left; font-size: 0.9rem;">
+                Round number {{game_round}} out of {{C.NUM_ROUNDS}} in this game.
+            </p>
+            <p class="" style="padding-bottom:20px;">
+                <!-- Please choose one of the options. /your preferred option  edit text  -->
+                {% if game_round > 5 %} 
+                    Please choose one of the options.  <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about 25kg CO2 as being equivalent to travelling 100 miles in an average passenger car.</b> </span>
+                {%else%}
+                    Please choose one of the options. If you choose option A, you will have a 90% chance of <b>winning 20 points</b> and a 10% chance of <b>loosing 200 points.</b>  <span class="Exp_Con"> Option A emits {{C.carbonB}} kg of CO2 equivalents. </span> If you choose option B, you will have a safe <b>win of 2 points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} kg of CO2 equivalents. While this is just a rough estimate, <b>you can think about 25kg CO2 as being equivalent to travelling 100 miles in an average passenger car.</b>  </span>
+                {%endif%}  
+            </p>
+            <table style=" width:100%" class="table" id="choicetable">
+                <tbody>
+                    <tr style="font-weight: bold;"> <th> </th> <td> Option A </td> <td> Option B </td></tr>
+                    
+                    <tr> <th> Payoff</th>
+                    <td>   <span > Get <span class="point_span">2</span> points with <span class="point_span">90%</span> probability </span> <br>  <span > Get <span class="point_span">-20</span> points with <span class="point_span">10%</span> probability </span> </td>   <td> Get <span class="point_span">0.2</span> points for sure</td>
+                    </tr>
+                    <tr class="Exp_Con" style="border-color: white;">
+                        <th  > Emissions</th> <td> Emit <span class="point_span">25</span> kg CO2</td>  <td> Emit <span class="point_span">0</span> kg CO2 </td>
+                    </tr>
+                        
+
+                    <tr style="border-color: white;">
+                        <th> </th>
+                        <td style="text-align: left;"><button name="choice" id="abtn" value="A"
+                            class="btn btn-primary btn-large" disabled> &nbsp;&nbsp;&nbsp;&nbsp;Choose Option A&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
+                        <td style="text-align: left;"><button name="choice" id="bbtn" value="B"
+                            class="btn btn-primary btn-large" disabled>&nbsp;&nbsp;&nbsp;&nbsp;Choose Option B&nbsp;&nbsp;&nbsp;&nbsp;</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        
+        
+    </div>
+
+      
+
+            {{ formfield_errors "choice" }}
+
+    
+
+
+</body>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    Exp_Con = "{{Exp_Con}}"
+    num_choices = "{{ C.NUM_ROUNDS }}";
+    lottery_a_hi = "{{ C.high_lottery }}";
+    lottery_a_lo = "{{ C.low_lottery }}";
+    lottery_b_hi = "{{ C.safe_outcome }}";
+    lottery_b_lo = "{{ C.safe_outcome }}";
+
+    enablebtn = function () {
+                document.getElementById("bbtn").disabled = false;
+                document.getElementById("abtn").disabled = false;
+                //document.getElementById("outcometable").style.display = "inline"
+                //document.getElementById("outcometable").setAttribute("style", "margin-left: auto; margin-right: auto;  ");
+                // document.getElementById("outcomesrow").setAttribute("style", "color: white;");
+                // document.getElementById("tabletitle").setAttribute("style", "color: white;");
+                // document.getElementById("chosenarrow").setAttribute("style", "color: white;");
+
+            }
+
+            activate_Exp_Con = function(){
+                if(Exp_Con == 'yes') {
+                    $('.Exp_Con').css("display", "revert")
+                }
+            }
+            window.onload = function () {
+                activate_Exp_Con();
+                setTimeout(function () { enablebtn() }, 1100);
+                // edit the timeout to 1200 or more!!!!
+            }
+</script>
+
+
+{% endblock %}

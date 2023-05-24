@@ -1,0 +1,65 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+<link href="{{ static 'global/empty.css'}}" rel="stylesheet">
+<link href="{{ static 'global/css/custom.css'}}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+Welcome to the Decision-making Game
+{% endblock %}
+
+{% block content %}
+<h3> Instructions 1<span id="part_no"></span> </h3>
+
+<h5>Please read the instructions carefully! </h5>
+<div >
+ 
+
+    <p>
+        This is a decision-making game.
+        You will play a game for {{num_rounds}} rounds.
+    </p>
+    <p>
+        In each round, you will choose between two options: Option A or Option B. In the first five rounds, you will not learn about the outcomes of your choices. 
+        After the fifth round, you will learn about the outcomes of both options: the option you chose and the option you did not choose. <strong> Your choices will
+            impact your bonus payment<span class="Exp_Con"> and the environment</span>.</strong>
+    </p>
+ 
+
+
+    <div style="max-width:909px;" class="next-btn">  
+        <div style="float: right; padding-top: 1vh;">
+            <button disabled class="btn btn-primary"id="next-button">Next</button> 
+        </div>
+    </div> 
+</div>
+{% endblock %}
+
+
+
+{% block scripts %}
+<script>
+
+
+enablebtn = function () {
+                document.getElementById("next-button").disabled = false;
+            }
+
+
+Exp_Con = "{{Exp_Con}}"
+activate_Exp_Con = function(){
+    if(Exp_Con == 'yes') {
+        $('.Exp_Con').css("display", "revert")
+        $('#part_no')[0].innerHTML="/3" 
+    } else {
+        $('#part_no')[0].innerHTML="/2" 
+    }
+}
+window.onload = function () {
+    activate_Exp_Con();
+    setTimeout(function () { enablebtn() }, 3 * 1000);
+}
+</script>
+{% endblock %}

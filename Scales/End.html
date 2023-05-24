@@ -1,0 +1,89 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+
+{% block styles %}
+    <link href="{{ static 'global/empty.css'}}" rel="stylesheet">
+    <link href="{{ static 'global/css/custom.css'}}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    END
+{% endblock %}
+
+{% block content %}
+
+
+<h2>Thank you for participating</h2><br>
+<div class="loading"> For one round, we will realize the outcomes of your choice. This round is being randomly drawn. </div>
+
+<div class="reveal_round" style="display:none">
+    The chosen round is: Round {{chosen_round}}.
+    <p> In round {{chosen_round}}, you {% if chosen_round_outcome < 0 %} <strong> lost 
+        {% else %}  <strong>  gained
+        {%endif%} {{chosen_round_outcome}} points. </strong> <br>
+
+        <span class="Exp_Con"> In that round, your <strong>CO2 emissions were 
+    
+            {% if chosen_round_choice == "A" %}
+                {{ C.carbonA }} kg.
+            {% else %}
+                {{ C.carbonB }} kg.
+            {%endif%}  </strong>
+            </span> 
+        </p>
+
+
+
+<p> Your bonus payment will thus be <strong>£{{payoff_decimal}}</strong>. </p>
+
+
+The payment will be transferred to you by Prolific within the next 2 days. <span class="Exp_Con"> The emissions will be realized by returning the corresponding number of CO2 emission certificates. </span>
+<br>
+
+<strong> PLEASE CLICK BELOW TO FINISH AND SUBMIT YOUR RESULTS </strong>
+<br>
+
+
+
+
+
+    <button class="btn btn-primary btn-large" style="margin-top:3vh;" type="button" onclick="window.location.href='https://app.prolific.co/submissions/complete?cc=C674J2IG'"> Click here to Finish</button>
+
+
+
+
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    Exp_Con = "{{Exp_Con}}"
+
+    activate_Exp_Con = function(){
+                if(Exp_Con == 'yes') {
+                    $('.Exp_Con').css("display", "revert")
+                }
+            }
+
+    activate_Payoff = function(){
+        $('.reveal_round').css("display", "block")
+        $('.loading').css("display", "none")
+    }
+            window.onload = function () {
+                
+
+
+                setTimeout(function() {
+                    activate_Payoff();
+                    activate_Exp_Con();
+                }, 4 * 1000);
+            }
+</script>
+
+
+{% endblock %}
+
+
