@@ -54,6 +54,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 PARTICIPANT_FIELDS = [
     'Exp_Con',
+    'outcomeCarbon',
     'reversedbuttons',
     'outcomeA',
     'outcomeB',

@@ -28,7 +28,7 @@
             {% if chosen_round_choice == "A" %}
                 {{ C.carbonA }} kg.
             {% else %}
-                {{ C.carbonB }} kg.
+                {{ carbonB }} kg.
             {%endif%}  </strong>
             </span> 
         </p>
@@ -63,7 +63,7 @@ The payment will be transferred to you by Prolific within the next 2 days. <span
     Exp_Con = "{{Exp_Con}}"
 
     activate_Exp_Con = function(){
-                if(Exp_Con == 'yes') {
+                if(Exp_Con > 1) {
                     $('.Exp_Con').css("display", "revert")
                 }
             }

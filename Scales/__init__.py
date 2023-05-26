@@ -20,8 +20,7 @@ class C(BaseConstants):
     ROUNDS_PER_CONDITION = 1
     NUM_ROUNDS = 1
     STARTING_PAYMENT = 20
-    PAYRATIO = 20
-    carbonB = 25
+    PAYRATIO = 20 
     carbonA = 0
 
 class Subsession(BaseSubsession):
@@ -73,8 +72,8 @@ class Player(BasePlayer):
     faithful = models.IntegerField(choices=[[1,'yes'], [0,'no']], label="Is there any reason why we should NOT use your data?")
     use_data = models.StringField(max_length=1000, blank=True, label="If we should NOT use your data, please specify why:")
     generalFeedback = models.StringField(max_length=3000, blank=True, label="Do you have any other comments or feedback on the study?")
-    Exp_Con = models.StringField() 
-    reversedbuttons = models.StringField()
+    Exp_Con = models.IntegerField() 
+    reversedbuttons = models.BooleanField()
     choiceAttention = models.StringField( choices=[ 'correct', 'false'])  # , widget=widgets.RadioSelect)
     chosen_round =  models.IntegerField()
     chosen_round_outcome = models.FloatField()
@@ -162,6 +161,7 @@ class End(Page):
         player.random_bonus = cu(1 + chosen_round_outcome / C.PAYRATIO )
         player.participant.finished = True
         player.participant.payoff = player.random_bonus
+        carbonB = player.participant.outcomeCarbon
         return {
             'chosen_round_outcome': chosen_round_outcome,
             'starting_payment': C.STARTING_PAYMENT,
@@ -170,7 +170,9 @@ class End(Page):
             'chosen_round_choice': chosen_round_choice,
             'Exp_Con' : Exp_Con,
             'player.payoff' : player.payoff,
-            'payoff_decimal': payoff_decimal
+            'payoff_decimal': payoff_decimal,
+            'carbonB': carbonB
+            
         }
 
     @staticmethod

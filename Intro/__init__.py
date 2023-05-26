@@ -28,6 +28,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     Exp_Con = models.IntegerField()  # This is a between subjects variable, counterbalance of the conditions. 1 is control, 2 is salient experimental, 3 is decay experimental
+    outcomeCarbon = models.IntegerField(initial=0)
     reversedbuttons = models.BooleanField()
     dataScience = models.BooleanField(initial=False)
     dataTeach = models.BooleanField(initial=False)
@@ -54,6 +55,7 @@ def creating_session(subsession: Subsession):
     import itertools
     conditions = itertools.cycle([1,2,3])
     reverse_display = itertools.cycle([True, False])
+    amount_carbon = itertools.cycle([10, 15, 20, 25, 30])
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
@@ -67,6 +69,9 @@ def creating_session(subsession: Subsession):
             
             player.participant.Exp_Con=player.Exp_Con
             player.participant.reversedbuttons=player.reversedbuttons
+            if player.participant.Exp_Con > 1:
+                player.outcomeCarbon = next(amount_carbon)
+            player.participant.outcomeCarbon = player.outcomeCarbon
             print(player.reversedbuttons)
 
 
@@ -173,9 +178,11 @@ class Preview_Game(Page):
     @staticmethod
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
+        outcomeCarbon = player.participant.outcomeCarbon
         return {
             'num_rounds': player.participant.game_rounds,
-            'Exp_Con': Exp_Con
+            'Exp_Con': Exp_Con,
+            'outcomeCarbon': outcomeCarbon
             }
 
     @staticmethod
@@ -190,14 +197,16 @@ class Preview_Game_Reverse(Page):
     @staticmethod
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
+        outcomeCarbon = player.participant.outcomeCarbon
         return {
             'num_rounds': player.participant.game_rounds,
-            'Exp_Con': Exp_Con
+            'Exp_Con': Exp_Con,
+            'outcomeCarbon': outcomeCarbon
             }
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.in_round(1).Exp_Con ==3 and player.participant.reversedbuttons == True
+        return player.in_round(1).Exp_Con == 3 and player.participant.reversedbuttons == True
         
 
 class before_Games(Page):

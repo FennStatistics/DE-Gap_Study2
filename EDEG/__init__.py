@@ -17,8 +17,8 @@ Description Experience Gap with Carbon Externalities
 class C(BaseConstants):
     NAME_IN_URL = 'EDEG'
     PLAYERS_PER_GROUP = None
-    ROUNDS_PER_CONDITION = 60
-    NUM_ROUNDS = 60
+    ROUNDS_PER_CONDITION = 10
+    NUM_ROUNDS = 10
     STARTING_PAYMENT = 20
     PAYRATIO = 20
     MINIMUM_PAYMENT = 0
@@ -27,7 +27,6 @@ class C(BaseConstants):
     safe_outcome = 2
     high_lottery = 20 # typical outcome of the lottery
     low_lottery = -200 # rare disaster 
-    carbonB = 25
     carbonA = 0
     show_feedback = 6
 
@@ -110,6 +109,7 @@ class Main(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
+        carbonB = player.participant.outcomeCarbon
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -121,6 +121,7 @@ class Main(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
+                'carbonB': carbonB
             }
     @staticmethod
     def is_displayed(player: Player):
@@ -139,6 +140,7 @@ class Main_reverse(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
+        carbonB = player.participant.outcomeCarbon
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -150,6 +152,7 @@ class Main_reverse(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
+                'carbonB': carbonB
             }
     @staticmethod
     def is_displayed(player: Player):
@@ -166,7 +169,7 @@ class Feedback(Page):
     
     @staticmethod
     def is_displayed(player: Player):
-        return (player.round_number > 5 and player.participant.reversedbuttons== False)
+        return (player.round_number >= C.show_feedback and player.participant.reversedbuttons== False)
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -201,6 +204,7 @@ class Feedback(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
+                'carbonB' : player.participant.outcomeCarbon
             }
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -214,7 +218,7 @@ class Feedback_reverse(Page):
     
     @staticmethod
     def is_displayed(player: Player):
-        return (player.round_number > 5  and player.participant.reversedbuttons == True )
+        return (player.round_number >= C.show_feedback  and player.participant.reversedbuttons == True )
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -248,8 +252,8 @@ class Feedback_reverse(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'previous_carbonA' : C.carbonB,
-                'previous_carbonB' : C.carbonA,
+                'carbonA' : player.participant.outcomeCarbon,
+                'carbonB' : C.carbonA
             }
     @staticmethod
     def before_next_page(player: Player, timeout_happened):

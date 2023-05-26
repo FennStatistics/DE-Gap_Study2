@@ -35,8 +35,8 @@ Welcome to the Decision-making Game
 
 
         <li> <strong>Your bonus payment depends on your choices.
-            </strong> Depending on your choices, you will either earn or loose points. 20 points will be equivalent to
-            £1 (which equals to around USD $1.25). Your initial bonus payment is set to £1. This means, if you loose 20 points, your bonus payment will be £0, if you earn 20 points, your bonus payment will be £2.
+            </strong> Depending on your choices, you will either earn or lose points. 20 points will be equivalent to
+            £1 (which equals to around USD $1.25). Your initial bonus payment is set to £1. This means, if you lose 20 points, your bonus payment will be £0, if you earn 20 points, your bonus payment will be £2.
         </li>
     </ul>
 
@@ -89,7 +89,7 @@ I have read and understood the instructions.
 <script>
 Exp_Con = "{{Exp_Con}}"
 activate_Exp_Con = function(){
-    if(Exp_Con == 'yes') {
+    if(Exp_Con > 1) {
         $('.Exp_Con').css("display", "revert")
     }
 }

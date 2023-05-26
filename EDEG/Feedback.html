@@ -27,11 +27,11 @@
                         Had you chosen Option B, you would have 
                         {% if previous_outcomeB < 0 %} lost 20
                         {% else %} gained 2 
-                        {%endif%} points and caused {{C.carbonB}} kg of CO2 emissions.            
+                        {%endif%} points and caused {{carbonB}} kg of CO2 emissions.            
                     {% endif %}
                         
                     {% if previous_choice == "B" %}
-                        <strong> {{ C.carbonB }} kg of CO2 emissions</strong>.
+                        <strong> {{ carbonB }} kg of CO2 emissions</strong>.
                         Had you chosen Option A, you would have 
                         {% if previous_outcomeA < 0 %} lost 
                         {% else %} gained
@@ -111,7 +111,7 @@
                                     </td></strong>
         
                                     <td style="font-size:16pt; background-color: none; text-align: center;">
-                                    {% if previous_choice == "B" %}<strong>{% endif %}&nbsp;{{ C.carbonB }} kg CO2 &nbsp;
+                                    {% if previous_choice == "B" %}<strong>{% endif %}&nbsp;{{ carbonB }} kg CO2 &nbsp;
                                         </td></strong>
                                     </td>
                                 </tr>
