@@ -71,7 +71,7 @@ enablebtn = function () {
 
 Exp_Con = "{{Exp_Con}}"
 activate_Exp_Con = function(){
-    if(Exp_Con == 'yes') {
+    if(Exp_Con > 1) {
         $('.Exp_Con').css("display", "revert")
         $('#part_no')[0].innerHTML="3/3" 
     } else {

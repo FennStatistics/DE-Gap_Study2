@@ -13,6 +13,11 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     ROUNDS_PER_CONDITION = 1
     NUM_ROUNDS = 1
+    safe_outcome = 2
+    high_lottery = 20 # typical outcome of the lottery
+    low_lottery = -200 # rare disaster 
+    carbonB = 25
+    carbonA = 0
 
 class Subsession(BaseSubsession):
     pass
@@ -22,7 +27,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     Exp_Con = models.IntegerField()  # This is a between subjects variable, counterbalance of the conditions. 1 is control, 2 is salient experimental, 3 is decay experimental
-    reversedbuttons = models.StringField()
+    reversedbuttons = models.BooleanField()
     dataScience = models.BooleanField(initial=False)
     dataTeach = models.BooleanField(initial=False)
     realEmissions = models.IntegerField(choices=[[1,'True'], [0,'False']], label="Does the decision that will determine your bonus have a real consequence for the environment?")
@@ -30,21 +35,27 @@ class Player(BasePlayer):
     attention2 = models.StringField(max_length=360, blank=True)
     mobileDevice= models.BooleanField(initial=False, blank=True)
     prolificIDMissing= models.BooleanField(initial=False)
+    amountEmissionsRisky = models.IntegerField(blank = True, min_length=1)
+    amountEmissionsSafe = models.IntegerField(blank = True, min_length=1)
     
 # FUNCTIONS
 
 def creating_session(subsession: Subsession):
-    print('creating session intro')
-    seed = 1000
+    import itertools
+    conditions = itertools.cycle([1,2,3])
+    reverse_display = itertools.cycle([True, False])
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
-            player.Exp_Con = random_choice([1,2,3]) # 1 is control, 2 is experimental salient, 3 is experimental with decay
+            if 'Exp_Con' in player.session.config:
+                player.Exp_Con = player.session.config['Exp_Con']
+                player.reversedbuttons = player.session.config['reversedbuttons']
+            else:
+                player.Exp_Con = next(conditions) # 1 is control, 2 is experimental salient, 3 is experimental with decay
+                player.reversedbuttons = next(reverse_display)
+            
             player.participant.Exp_Con=player.Exp_Con
-            #player.reversedbuttons = "yes"
-            player.reversedbuttons = random_choice(['yes', 'no'])
             player.participant.reversedbuttons=player.reversedbuttons
-            print('player')
             print(player.reversedbuttons)
 
 
@@ -57,10 +68,11 @@ class Consent(Page):
     
     @staticmethod
     def vars_for_template(player: Player):
-        player.prolificIDMissing = player.participant.label == None
+        # while testing this experiment do not check for prolificID (replace False with commented code)
+        player.prolificIDMissing = False # player.participant.label == None
         return {
             "particpantlabel": player.participant.label,
-            "nolabel": player.participant.label == None
+            "nolabel": False # player.participant.label == None
             }
     
 
@@ -122,6 +134,40 @@ class NotAtt(Page):
             return not("thank" in player.in_round(1).attention.lower())
         
 
+class Preview_Game(Page):
+    form_model = 'player'
+    form_fields = ['amountEmissionsRisky', 'amountEmissionsSafe']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.in_round(1).Exp_Con
+        return {
+            'num_rounds': player.participant.game_rounds,
+            'Exp_Con': Exp_Con
+            }
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.in_round(1).Exp_Con ==3 and player.participant.reversedbuttons == False
+    
+
+class Preview_Game_Reverse(Page):
+    form_model = 'player'
+    form_fields = ['amountEmissionsRisky', 'amountEmissionsSafe']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.in_round(1).Exp_Con
+        return {
+            'num_rounds': player.participant.game_rounds,
+            'Exp_Con': Exp_Con
+            }
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.in_round(1).Exp_Con ==3 and player.participant.reversedbuttons == True
+        
+
 class before_Games(Page):
     form_model = 'player'
     
@@ -133,6 +179,8 @@ page_sequence = [
     Intro_1,
     Intro_2,
     Intro_3,
+    Preview_Game_Reverse, 
+    Preview_Game,
     NotAtt, 
     before_Games
 ]

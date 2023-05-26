@@ -12,7 +12,35 @@ SESSION_CONFIGS = [
         name='DEG_study2', 
         app_sequence=[ 'Intro','EDEG', 'Scales',], 
         num_demo_participants=5
-    )
+    ),
+
+    dict(
+        name='DEG_study2_EmissionsSalient',
+        app_sequence=[ 'Intro','EDEG', 'Scales',], 
+        num_demo_participants=5,
+        Exp_Con=2,
+        reversedbuttons = True,
+    ),
+    dict(
+        name='DEG_study2_EmissionsDecay',
+        app_sequence=[ 'Intro','EDEG', 'Scales',], 
+        num_demo_participants=5,
+        Exp_Con=3,
+        reversedbuttons = True,
+    ),
+    dict(
+        name='DEG_study2_Control',
+        app_sequence=[ 'Intro','EDEG', 'Scales',], 
+        num_demo_participants=5,
+        Exp_Con=1,
+        reversedbuttons = True,
+        doc="""
+         Edit the 'num_apples' parameter to change the factor by which
+         contributions to the group are multiplied.
+         """
+    ),
+
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

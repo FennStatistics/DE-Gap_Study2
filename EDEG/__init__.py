@@ -79,7 +79,7 @@ def make_choice(player: Player, choiceMade):
     #     print('we are drawing reveresedbuttons')
     player.choice = choiceMade
     player.outcomeA, player.outcomeB = output_outcome(player)
-    if reversedbuttons == 'yes':
+    if reversedbuttons == True:
         if choiceMade == 'A':
             player.choice = 'B'
         elif choiceMade == 'B':
@@ -124,7 +124,7 @@ class Main(Page):
             }
     @staticmethod
     def is_displayed(player: Player):
-        return (player.participant.reversedbuttons == "no")
+        return (player.participant.reversedbuttons == False)
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -153,7 +153,7 @@ class Main_reverse(Page):
             }
     @staticmethod
     def is_displayed(player: Player):
-        return (player.participant.reversedbuttons== "yes")
+        return (player.participant.reversedbuttons== True)
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -166,13 +166,13 @@ class Feedback(Page):
     
     @staticmethod
     def is_displayed(player: Player):
-        return (player.round_number > 5 and player.participant.reversedbuttons== "no")
+        return (player.round_number > 5 and player.participant.reversedbuttons== False)
 
     @staticmethod
     def vars_for_template(player: Player):
             previous_choice = player.in_round(player.round_number).choice
             previous_outcome = player.in_round(player.round_number).round_outcome
-            if player.participant.reversedbuttons == "yes":
+            if player.participant.reversedbuttons == True:
                 if previous_choice == "A":
                     previous_choice = "B"
                 elif previous_choice == "B":
@@ -214,13 +214,13 @@ class Feedback_reverse(Page):
     
     @staticmethod
     def is_displayed(player: Player):
-        return (player.round_number > 5  and player.participant.reversedbuttons == "yes" )
+        return (player.round_number > 5  and player.participant.reversedbuttons == True )
 
     @staticmethod
     def vars_for_template(player: Player):
             previous_choice = player.in_round(player.round_number).choice
             previous_outcome = player.in_round(player.round_number).round_outcome
-            if player.participant.reversedbuttons == "yes":
+            if player.participant.reversedbuttons == True:
                 if previous_choice == "A":
                     previous_choice = "B"
                 elif previous_choice == "B":

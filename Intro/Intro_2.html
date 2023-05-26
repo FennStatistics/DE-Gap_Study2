@@ -24,10 +24,14 @@
          <p>Some options cause <b>carbon (CO2) emissions in
                 the real world.</b> Prior to the study, we purchased CO2 emission certificates. There is only a
                 limited number of certificates on the market, and they regulate how much CO2 can be emitted in total. Think of a CO2 certificate as an allowance to emit a certain amount of CO2. 
-                If you choose an option that causes CO2 emissions, we will return the corresponding amount of CO2 certificates, allowing the buyer to emit this amount of CO2. If you choose an option without CO2 emissions, 
+         </p>
+         <p>
+
+                At the end of the game, one round will be randomly drawn. The emssions of that round will be realized in the real world. 
+                If you chose an option that causes CO2 emissions in that round, we will return the corresponding amount of CO2 certificates, allowing the buyer to emit this amount of CO2. If you choose an option without CO2 emissions, 
                 we will calculate how much CO2 you saved compared to the other option. We will then destroy carbon certificates corresponding to your CO2 savings. Once the CO2 certificate is destroyed and taken off the market, it 
                 reduces the total amount of emission allowances that can be purchased. With less certificates on the market, less carbon can be emitted in total.
-                <strong> This means, carbon emissions will actually be realized in the real world following your choices.
+                <strong> This means, for one randomly drawn round, the carbon emissions will actually be realized in the real world following your choices.
                 </strong>
         </p>
 
@@ -71,7 +75,7 @@ enablebtn = function () {
 
 Exp_Con = "{{Exp_Con}}"
 activate_Exp_Con = function(){
-    if(Exp_Con == 'yes') {
+    if(Exp_Con > 1) {
         $('.Exp_Con').css("display", "revert")
     }
 }

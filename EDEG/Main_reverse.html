@@ -24,7 +24,7 @@
                 {% if game_round > 5 %} 
                     Please choose one of the options.  <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about 25kg CO2 as being equivalent to travelling 100 miles in an average passenger car.</b> </span>
                 {%else%}
-                    Please choose one of the options. If you choose option A, you will have a 90% chance of <b>winning 20 points</b> and a 10% chance of <b>loosing 200 points.</b>  <span class="Exp_Con"> Option A emits {{C.carbonB}} kg of CO2 equivalents. </span> If you choose option B, you will have a safe <b>win of 2 points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} kg of CO2 equivalents. While this is just a rough estimate, <b>you can think about 25kg CO2 as being equivalent to travelling 100 miles in an average passenger car.</b>  </span>
+                    Please choose one of the options. If you choose Option A, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of <b>loosing {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option A emits {{C.carbonB}} kg of CO2 equivalents. </span> If you choose Option B, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} kg of CO2 equivalents. While this is just a rough estimate, <b>you can think about 25kg CO2 as being equivalent to travelling 100 miles in an average passenger car.</b>  </span>
                 {%endif%}  
             </p>
             <table style=" width:100%" class="table" id="choicetable">
@@ -32,7 +32,7 @@
                     <tr style="font-weight: bold;"> <th> </th> <td> Option A </td> <td> Option B </td></tr>
                     
                     <tr> <th> Payoff</th>
-                    <td>   <span > Get <span class="point_span">2</span> points with <span class="point_span">90%</span> probability </span> <br>  <span > Get <span class="point_span">-20</span> points with <span class="point_span">10%</span> probability </span> </td>   <td> Get <span class="point_span">0.2</span> points for sure</td>
+                    <td>   <span > Get <span class="point_span">{{ C.high_lottery }}</span> points with <span class="point_span">90%</span> probability </span> <br>  <span > Get <span class="point_span">{{ C.low_lottery }}</span> points with <span class="point_span">10%</span> probability </span> </td>   <td> Get <span class="point_span">{{ C.safe_outcome }}</span> points for sure</td>
                     </tr>
                     <tr class="Exp_Con" style="border-color: white;">
                         <th  > Emissions</th> <td> Emit <span class="point_span">25</span> kg CO2</td>  <td> Emit <span class="point_span">0</span> kg CO2 </td>
