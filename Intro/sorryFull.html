@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+<link href="{{ static 'global/empty.css'}}" rel="stylesheet">
+<link href="{{ static 'global/css/custom.css'}}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+Welcome to the Decision-making Game
+{% endblock %}
+
+{% block content %}
+<h5>Please read the instructions carefully! </h5>
+
+<div class="att-box"> 
+Sorry, you are not selected for participation. 
+</div>
+
+<div>
+<button style="float: right; margin-top: 1vh; display: block;" disabled class="btn btn-primary"id="next-button">Next</button> 
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    
+</script>
+{% endblock %}
+
+
+

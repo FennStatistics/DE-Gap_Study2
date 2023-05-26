@@ -19,6 +19,7 @@ class C(BaseConstants):
     carbonB = 25
     carbonA = 0
 
+
 class Subsession(BaseSubsession):
     pass
 
@@ -37,6 +38,15 @@ class Player(BasePlayer):
     prolificIDMissing= models.BooleanField(initial=False)
     amountEmissionsRisky = models.IntegerField(blank = True, min_length=1)
     amountEmissionsSafe = models.IntegerField(blank = True, min_length=1)
+    #demographics
+    gender = models.IntegerField(choices=[[1,'Male'], [2,'Female'],[3,'Diverse'], [4,'Other']])
+    age = models.IntegerField(min=18, max=100, max_length=2)
+    hh_income = models.IntegerField(choices=[[1,'up to 30k'], [2,'between 30k and 50k'],[3,'between 50k and 80k'], [4,'more than 80k'], [5, "prefer not to say"]])
+    hh_party = models.IntegerField(choices=[[1, "Democratic Party"], [2, "Republican Party"], [3, "Other"]])
+    hh_party_other = models.StringField(max_length=150, blank=True, label="Please specify")
+    range_party = models.IntegerField( min=-100, max=100)
+    conservative_liberal = models.IntegerField( widget=widgets.RadioSelect, choices=[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4,5])
+    
     
 # FUNCTIONS
 
@@ -47,6 +57,7 @@ def creating_session(subsession: Subsession):
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
+            subsession.session.countDems = 0
             if 'Exp_Con' in player.session.config:
                 player.Exp_Con = player.session.config['Exp_Con']
                 player.reversedbuttons = player.session.config['reversedbuttons']
@@ -75,6 +86,27 @@ class Consent(Page):
             "nolabel": False # player.participant.label == None
             }
     
+
+class Demographics(Page):
+    form_model = 'player'
+    form_fields = ['age', 'gender', 'hh_income', "hh_party", "range_party", "hh_party_other"]
+
+
+class sorryFull(Page):
+    form_model = 'player'
+    @staticmethod
+    def is_displayed(player: Player):
+        is_dem = player.hh_party==1
+        print("count dems is", player.session.vars['countDems'] )
+        print("id dem is ", is_dem)
+        if (is_dem == True):
+            player.session.vars['countDems'] += 1
+            return player.session.vars['countDems'] > 2
+        else:
+            return False
+    
+    
+
 
 class Intro_1(Page):
     form_model = 'player'
@@ -176,6 +208,8 @@ class before_Games(Page):
 
 page_sequence = [
     Consent,
+    Demographics, 
+    sorryFull,
     Intro_1,
     Intro_2,
     Intro_3,

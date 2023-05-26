@@ -45,6 +45,8 @@ class Player(BasePlayer):
     hh_income = models.IntegerField(choices=[[1,'up to 30k'], [2,'between 30k and 50k'],[3,'between 50k and 80k'], [4,'more than 80k'], [5, "prefer not to say"]])
     hh_party = models.IntegerField(choices=[[1, "Democratic Party"], [2, "Republican Party"], [3, "Other"]])
     hh_party_other = models.StringField(max_length=150, blank=True, label="Please specify")
+    range_party = models.IntegerField( min=-100, max=100)
+    conservative_liberal = models.IntegerField( widget=widgets.RadioSelect, choices=[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4,5])
     ccc1 = make_field('We must protect the climate’s delicate equilibrium.') ## concern 4 items
     ccc2 = make_field('Climate protection is important for our future.')
     ccc3 = make_field('I worry about the climate’s state.')
@@ -67,8 +69,6 @@ class Player(BasePlayer):
     hie1 = make_field('Our society would be better off if the distribution of wealth was more equal.')
     hie2 = make_field('A lot of problems in our society come from the decline in the traditional family, where the man works and the woman stays home.')
     hie3 = make_field('Discrimination against minorities is still a very serious problem in our country.')
-    range_party = models.IntegerField( min=-100, max=100)
-    conservative_liberal = models.IntegerField( widget=widgets.RadioSelect, choices=[-5, -4, -3, -2, -1, 0, 1, 2, 3, 4,5])
     trustCC = models.IntegerField(choices=[1,2,3,4,5,6,7,8],label='How much did you trust the carbon offsetting procedure in this study?',widget=widgets.RadioSelect )
     faithful = models.IntegerField(choices=[[1,'yes'], [0,'no']], label="Is there any reason why we should NOT use your data?")
     use_data = models.StringField(max_length=1000, blank=True, label="If we should NOT use your data, please specify why:")
@@ -185,7 +185,7 @@ class betweenGames(Page):
 page_sequence = [
     betweenGames,
     Main_A,
-    Demographics,
+    #Demographics,
     CCConcern,
     Pol_Att,
     ####Conservative,

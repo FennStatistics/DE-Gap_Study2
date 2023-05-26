@@ -66,7 +66,9 @@ PARTICIPANT_FIELDS = [
 ]
 
 
-SESSION_FIELDS = []
+SESSION_FIELDS = [
+    'countDems'
+]
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
