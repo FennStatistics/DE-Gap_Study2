@@ -187,7 +187,7 @@ class betweenGames(Page):
 page_sequence = [
     betweenGames,
     Main_A,
-    #Demographics,
+    Demographics,
     CCConcern,
     Pol_Att,
     ####Conservative,

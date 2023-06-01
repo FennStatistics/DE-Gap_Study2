@@ -68,7 +68,6 @@ PARTICIPANT_FIELDS = [
 
 
 SESSION_FIELDS = [
-    'countDems'
 ]
 
 # ISO-639 code
