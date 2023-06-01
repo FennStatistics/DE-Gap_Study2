@@ -187,7 +187,7 @@ class Preview_Game(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.in_round(1).Exp_Con ==3 and player.participant.reversedbuttons == False
+        return player.in_round(1).Exp_Con > 1 and player.participant.reversedbuttons == False
     
 
 class Preview_Game_Reverse(Page):
@@ -206,7 +206,7 @@ class Preview_Game_Reverse(Page):
 
     @staticmethod
     def is_displayed(player: Player):
-        return player.in_round(1).Exp_Con == 3 and player.participant.reversedbuttons == True
+        return player.in_round(1).Exp_Con > 1 and player.participant.reversedbuttons == True
         
 
 class before_Games(Page):
