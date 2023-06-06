@@ -28,7 +28,7 @@ class C(BaseConstants):
     high_lottery = 20 # typical outcome of the lottery
     low_lottery = -200 # rare disaster 
     carbonA = 0
-    show_feedback = 6
+    show_feedback = 1
 
 class Subsession(BaseSubsession):
     pass
@@ -37,13 +37,6 @@ class Group(BaseGroup):
     pass
 
 #PLAYER FUNCTION 
-def make_field(label):
-        return models.IntegerField(
-            choices=[1,2,3,4,5],
-            label=label,
-            widget=widgets.RadioSelect,
-            )
-
 
 class Player(BasePlayer):
     choice = models.StringField( choices=[ 'A', 'B'])  # , widget=widgets.RadioSelect)
@@ -102,6 +95,7 @@ def determine_outcome(player:Player, chosen_round):
 # ------------------- PAGES--------------------------------------
 #----------------------------------------------------------------
 
+
 class Main(Page):
     form_model = 'player'
     form_fields = ['choice']
@@ -133,7 +127,7 @@ class Main(Page):
         make_choice(player, player.choice)
         print('do you even get here')
 
-class Main_reverse(Page):
+class Main_R(Page):
     form_model = 'player'
     form_fields = ['choice']
     @staticmethod
@@ -160,7 +154,7 @@ class Main_reverse(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        print('in before next page function')
+        print('in before next page function', player.choice)
         make_choice(player, player.choice)
         print('do you even get here')
 
@@ -173,18 +167,18 @@ class Feedback(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
-            previous_choice = player.in_round(player.round_number).choice
-            previous_outcome = player.in_round(player.round_number).round_outcome
+            previous_choice = player.choice
+            previous_outcome = player.round_outcome
             if player.participant.reversedbuttons == True:
                 if previous_choice == "A":
                     previous_choice = "B"
                 elif previous_choice == "B":
                     previous_choice = "A"
-                previous_outcomeA = player.in_round(player.round_number).outcomeB
-                previous_outcomeB = player.in_round(player.round_number).outcomeA
+                previous_outcomeA = player.outcomeB
+                previous_outcomeB = player.outcomeA
             else:
-                previous_outcomeA = player.in_round(player.round_number).outcomeA
-                previous_outcomeB = player.in_round(player.round_number).outcomeB
+                previous_outcomeA = player.outcomeA
+                previous_outcomeB = player.outcomeB
             #game = player.in_round(player.round_number - 1).tax
             Exp_Con = player.participant.Exp_Con
             reversedbuttons = player.participant.reversedbuttons
@@ -213,7 +207,7 @@ class Feedback(Page):
             determine_outcome(player,chosen_round)
             print('the chosen round is', chosen_round)
            
-class Feedback_reverse(Page):
+class Feedback_R(Page):
     form_model = 'player'
     
     @staticmethod
@@ -222,18 +216,19 @@ class Feedback_reverse(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
-            previous_choice = player.in_round(player.round_number).choice
-            previous_outcome = player.in_round(player.round_number).round_outcome
+            print("player is in round number", player.round_number)
+            previous_choice = player.choice
+            previous_outcome = player.round_outcome
             if player.participant.reversedbuttons == True:
                 if previous_choice == "A":
                     previous_choice = "B"
                 elif previous_choice == "B":
                     previous_choice = "A"
-                previous_outcomeA = player.in_round(player.round_number).outcomeB
-                previous_outcomeB = player.in_round(player.round_number).outcomeA
+                previous_outcomeA = player.outcomeB
+                previous_outcomeB = player.outcomeA
             else:
-                previous_outcomeA = player.in_round(player.round_number).outcomeA
-                previous_outcomeB = player.in_round(player.round_number).outcomeB
+                previous_outcomeA = player.outcomeA
+                previous_outcomeB = player.outcomeB
             Exp_Con = player.participant.Exp_Con
             reversedbuttons = player.participant.reversedbuttons
             game_round = (
@@ -272,9 +267,9 @@ class betweenGames(Page):
 
 
 page_sequence = [
-    betweenGames,
+    #betweenGames,
     Main,
     Feedback,
-    Main_reverse,
-    Feedback_reverse
+    Main_R,
+    Feedback_R
 ]

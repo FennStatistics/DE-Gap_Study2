@@ -22,7 +22,7 @@
             <p class="" style="padding-bottom:20px;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
                 {% if game_round > 5 %} 
-                    Please choose one of the options.  <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </span>
+                    Please choose one of the options.  <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about {{carbonB}}kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </span>
                 {%else%}
                     Please choose one of the options. If you choose Option A, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of <b>loosing {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option A emits {{carbonB}} kg of CO2 equivalents. </span> If you choose Option B, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} kg of CO2 equivalents. While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b>  </span>
                 {%endif%}  
@@ -72,6 +72,7 @@
     lottery_a_lo = "{{ C.low_lottery }}";
     lottery_b_hi = "{{ C.safe_outcome }}";
     lottery_b_lo = "{{ C.safe_outcome }}";
+    miles = "{{carbonB}}" * 40; 
 
     enablebtn = function () {
                 document.getElementById("bbtn").disabled = false;

@@ -13,6 +13,11 @@
 {% block content %}
 
 <body>
+    <div class="att-box"> 
+        Your last answer was not accurate. Please enter a number only. Please take some time to read the description and make you answer correctly. 
+        </div>
+
+
    <div>
     <p> Below is a preview of the game. Please note that if you choose <b> Option A, it will cause {{outcomeCarbon}}kg of carbon (CO2) emissions. </b> Choosing <b>Option B, will not cause any carbon emissions.</b> While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </p> 
    </div>
@@ -63,15 +68,15 @@
             <tr> 
                 <td style="padding-left:0pt;"> <label class="col-form-label" for="id_amountEmissionsRisky">Option A causes</label>
                 </td>
-                <td style="padding-left:0;">  <input type="number"  class="form-control" inputmode="numeric" id="id_amountEmissionsRisky" max="1000" min="0" name="amountEmissionsRisky" required="" value=""> 
+                <td style="padding-left:0;">  <input type="number"  class="form-control" inputmode="numeric" id="id_amountEmissionsRisky" max="1000" min="0" step="1" name="amountEmissionsRisky" required="" value=""> 
                 </td> 
                 <td> kg CO2.</td>
             </tr>
 
             <tr> 
-                <td style="padding-left:0pt;"> <label class="col-form-label" for="id_amountEmissionsSafe">Option B causes</label>
+                <td style="padding-left:0pt;"> <label class="col-form-label" min="0" max="1000" step="1" for="id_amountEmissionsSafe">Option B causes</label>
                 </td>
-                <td style="padding-left:0;">  <input type="number"  class="form-control" inputmode="numeric" id="id_amountEmissionsSafe" max="1000" min="0" name="amountEmissionsSafe" required="" value=""> 
+                <td style="padding-left:0;">  <input type="number"  min="0" max="1000" step="1" class="form-control" inputmode="numeric" id="id_amountEmissionsSafe" max="1000" min="0" step="1" name="amountEmissionsSafe" required="" value=""> 
                 </td> 
                 <td> kg CO2.</td>
             </tr>
@@ -80,8 +85,8 @@
     </div>
 
     
-    {{ formfield_errors "amountEmissionsSafe" }}
-    {{ formfield_errors "amountEmissionsRisky" }}
+    {{ formfield_errors "amountEmissionsSafe2" }}
+    {{ formfield_errors "amountEmissionsRisky2" }}
     
  
     

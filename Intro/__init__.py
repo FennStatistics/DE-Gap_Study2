@@ -39,6 +39,9 @@ class Player(BasePlayer):
     prolificIDMissing= models.BooleanField(initial=False)
     amountEmissionsRisky = models.IntegerField(blank = True, min_length=1)
     amountEmissionsSafe = models.IntegerField(blank = True, min_length=1)
+    amountEmissionsRisky2 = models.IntegerField(blank = True, min_length=1)
+    amountEmissionsSafe2 = models.IntegerField(blank = True, min_length=1)
+    preference = models.StringField( choices=[ 'A', 'B'])  # , widget=widgets.RadioSelect)
     
     
     
@@ -52,7 +55,6 @@ def creating_session(subsession: Subsession):
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
-            subsession.session.countDems = 0
             if 'Exp_Con' in player.session.config:
                 player.Exp_Con = player.session.config['Exp_Con']
                 player.reversedbuttons = player.session.config['reversedbuttons']
@@ -66,6 +68,20 @@ def creating_session(subsession: Subsession):
                 player.outcomeCarbon = next(amount_carbon)
             player.participant.outcomeCarbon = player.outcomeCarbon
             print(player.reversedbuttons)
+
+
+
+def make_choice(player: Player, choiceMade):
+    Exp_Con = player.participant.Exp_Con
+    reversedbuttons = player.participant.reversedbuttons
+    # if player.round_number % C.ROUNDS_PER_CONDITION == 0:
+    #     print('we are drawing reveresedbuttons')
+    player.preference = choiceMade
+    if reversedbuttons == True:
+        if choiceMade == 'A':
+            player.preference = 'B'
+        elif choiceMade == 'B':
+            player.preference = 'A'
 
 
 # ---------------------------------------------------------------
@@ -163,7 +179,7 @@ class Preview_Game(Page):
         return player.in_round(1).Exp_Con > 1 and player.participant.reversedbuttons == False
     
 
-class Preview_Game_Reverse(Page):
+class Preview_Game_R(Page):
     form_model = 'player'
     form_fields = ['amountEmissionsRisky', 'amountEmissionsSafe']
 
@@ -182,8 +198,116 @@ class Preview_Game_Reverse(Page):
         return player.in_round(1).Exp_Con > 1 and player.participant.reversedbuttons == True
         
 
+
+class NoA2(Page):
+    form_model = 'player'
+    form_fields = ['amountEmissionsRisky2', 'amountEmissionsSafe2']
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.in_round(1).Exp_Con
+        outcomeCarbon = player.participant.outcomeCarbon
+        return {'num_rounds': player.participant.game_rounds,
+                'Exp_Con': Exp_Con, 
+                'outcomeCarbon': outcomeCarbon}
+
+    @staticmethod
+    def is_displayed(player: Player):
+        if player.in_round(1).amountEmissionsRisky == player.participant.outcomeCarbon and player.in_round(1).amountEmissionsSafe == 0 :
+            return False
+        if player.participant.reversedbuttons == True:
+            return False
+        return True
+    
+
+class NoA2_R(Page):
+    form_model = 'player'
+    form_fields = ['amountEmissionsRisky2', 'amountEmissionsSafe2']
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.in_round(1).Exp_Con
+        outcomeCarbon = player.participant.outcomeCarbon
+        return {'num_rounds': player.participant.game_rounds,
+                'Exp_Con': Exp_Con, 
+                'outcomeCarbon': outcomeCarbon}
+
+    @staticmethod
+    def is_displayed(player: Player):
+        if player.in_round(1).amountEmissionsRisky == player.participant.outcomeCarbon and player.in_round(1).amountEmissionsSafe == 0 :
+            return False
+        if player.participant.reversedbuttons == False:
+            return False
+        return True
+    
+
+
+class Preview_Game2(Page):
+    form_model = 'player'
+    form_fields = ['preference']
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.participant.Exp_Con
+        reversedbuttons = player.participant.reversedbuttons
+        carbonB = player.participant.outcomeCarbon
+        game_round = (
+                player.round_number
+                - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
+                * C.ROUNDS_PER_CONDITION
+            )
+        return {
+                #'game': game,
+                'Exp_Con': Exp_Con,
+                'game_round': game_round,
+                'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
+                'lastRB': reversedbuttons,
+                'carbonB': carbonB
+            }
+    @staticmethod
+    def is_displayed(player: Player):
+        return (player.participant.reversedbuttons == False)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        make_choice(player, player.preference)
+
+class Preview_GameR2(Page):
+    form_model = 'player'
+    form_fields = ['preference']
+    @staticmethod
+    def vars_for_template(player: Player):
+        Exp_Con = player.participant.Exp_Con
+        reversedbuttons = player.participant.reversedbuttons
+        carbonB = player.participant.outcomeCarbon
+        game_round = (
+                player.round_number
+                - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
+                * C.ROUNDS_PER_CONDITION
+            )
+        return {
+                #'game': game,
+                'Exp_Con': Exp_Con,
+                'game_round': game_round,
+                'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
+                'lastRB': reversedbuttons,
+                'carbonB': carbonB
+            }
+    @staticmethod
+    def is_displayed(player: Player):
+        return (player.participant.reversedbuttons== True)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        make_choice(player, player.preference)
+
+
+
+
+
 class before_Games(Page):
     form_model = 'player'
+
+
+
+
     
 
 
@@ -193,8 +317,12 @@ page_sequence = [
     Intro_1,
     Intro_2,
     Intro_3,
-    Preview_Game_Reverse, 
-    Preview_Game,
     NotAtt, 
+    Preview_Game_R, 
+    Preview_Game,
+    NoA2,
+    NoA2_R,
+    Preview_GameR2, 
+    Preview_Game2,
     before_Games
 ]
