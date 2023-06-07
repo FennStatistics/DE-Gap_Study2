@@ -14,7 +14,9 @@
 
 <body>
    <div>
-    <p> Below is a preview of the game. Please note that if you choose <b> Option A, it will cause {{outcomeCarbon}}kg of carbon (CO2) emissions. </b> Choosing <b>Option B, will not cause any carbon emissions.</b> While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </p> 
+    <p> Below is a preview of the game. Please note that if you choose <b> Option A, it will cause {{outcomeCarbon}}kg of carbon (CO2) emissions. </b> Choosing <b>Option B, will not cause any carbon emissions. </b></p> 
+
+        <p>  While this is just a rough estimate, <b>you can think about {{outcomeCarbon}}kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </p> 
    </div>
     
   
@@ -26,7 +28,7 @@
             
             <p class="" style="padding-bottom:20px; font:grey;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
-                    Please choose one of the options. If you choose option A, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of <b>loosing {{ C.low_lottery }} points.</b>  If you choose option B, you will have a safe <b>win of {{ C.safe_outcome }} points.</b>   
+                    Please choose one of the options. If you choose Option A, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of <b>loosing {{ C.low_lottery }} points.</b>  If you choose option B, you will have a safe <b>win of {{ C.safe_outcome }} points.</b>   
             </p>
             <table style=" width:100%" class="table" id="choicetable">
                 <tbody>
@@ -113,9 +115,16 @@
     lottery_b_lo = "{{ C.safe_outcome }}";
 
    
+    activate_Exp_Con = function(){
+                if(Exp_Con == 2) {
+                    $('.Exp_Con').css("display", "revert")
+                }
+        }
+
+
     window.onload = function () {
-                // edit the timeout to 1200 or more!!!!
-    }
+                activate_Exp_Con();
+        }
 </script>
 
 

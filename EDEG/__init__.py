@@ -18,9 +18,9 @@ class C(BaseConstants):
     NAME_IN_URL = 'EDEG'
     PLAYERS_PER_GROUP = None
     ROUNDS_PER_CONDITION = 10
-    NUM_ROUNDS = 10
-    STARTING_PAYMENT = 20
-    PAYRATIO = 20
+    NUM_ROUNDS = 4
+    STARTING_PAYMENT = 1
+    PAYRATIO = 200
     MINIMUM_PAYMENT = 0
     MAXIMUM_PAYMENT = 1.10
     TIME_TO_FINISH = 7
@@ -104,6 +104,7 @@ class Main(Page):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
         carbonB = player.participant.outcomeCarbon
+        carbonMiles = carbonB * 4
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -115,7 +116,8 @@ class Main(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB
+                'carbonB': carbonB,
+                'carbonMiles': carbonMiles
             }
     @staticmethod
     def is_displayed(player: Player):
@@ -135,6 +137,7 @@ class Main_R(Page):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
         carbonB = player.participant.outcomeCarbon
+        carbonMiles = carbonB * 4
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -146,7 +149,8 @@ class Main_R(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB
+                'carbonB': carbonB,
+                'carbonMiles': carbonMiles
             }
     @staticmethod
     def is_displayed(player: Player):

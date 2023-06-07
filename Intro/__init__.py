@@ -50,18 +50,18 @@ class Player(BasePlayer):
 def creating_session(subsession: Subsession):
     import itertools
     conditions = itertools.cycle([1,2,3])
-    reverse_display = itertools.cycle([True, False])
-    amount_carbon = itertools.cycle([10, 15, 20, 25, 30])
+    reverse_display = itertools.cycle([True, False, False, True])
+    amount_carbon = itertools.cycle([5, 25])
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
             if 'Exp_Con' in player.session.config:
                 player.Exp_Con = player.session.config['Exp_Con']
-                player.reversedbuttons = player.session.config['reversedbuttons']
             else:
                 player.Exp_Con = next(conditions) # 1 is control, 2 is experimental salient, 3 is experimental with decay
-                player.reversedbuttons = next(reverse_display)
             
+            player.reversedbuttons = next(reverse_display)
+
             player.participant.Exp_Con=player.Exp_Con
             player.participant.reversedbuttons=player.reversedbuttons
             if player.participant.Exp_Con > 1:
@@ -168,10 +168,12 @@ class Preview_Game(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
         outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         return {
             'num_rounds': player.participant.game_rounds,
             'Exp_Con': Exp_Con,
-            'outcomeCarbon': outcomeCarbon
+            'outcomeCarbon': outcomeCarbon,
+            'carbonMiles': carbonMiles
             }
 
     @staticmethod
@@ -187,10 +189,12 @@ class Preview_Game_R(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
         outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         return {
             'num_rounds': player.participant.game_rounds,
             'Exp_Con': Exp_Con,
-            'outcomeCarbon': outcomeCarbon
+            'outcomeCarbon': outcomeCarbon,
+            'carbonMiles': carbonMiles
             }
 
     @staticmethod
@@ -206,15 +210,19 @@ class NoA2(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
         outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         return {'num_rounds': player.participant.game_rounds,
                 'Exp_Con': Exp_Con, 
-                'outcomeCarbon': outcomeCarbon}
+                'outcomeCarbon': outcomeCarbon,
+            'carbonMiles': carbonMiles}
 
     @staticmethod
     def is_displayed(player: Player):
-        if player.in_round(1).amountEmissionsRisky == player.participant.outcomeCarbon and player.in_round(1).amountEmissionsSafe == 0 :
+        if player.in_round(1).Exp_Con == 1: 
             return False
         if player.participant.reversedbuttons == True:
+            return False
+        if player.amountEmissionsRisky == player.participant.outcomeCarbon and player.amountEmissionsSafe == 0 :
             return False
         return True
     
@@ -226,15 +234,19 @@ class NoA2_R(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.in_round(1).Exp_Con
         outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         return {'num_rounds': player.participant.game_rounds,
                 'Exp_Con': Exp_Con, 
-                'outcomeCarbon': outcomeCarbon}
+                'outcomeCarbon': outcomeCarbon,
+                'carbonMiles': carbonMiles}
 
     @staticmethod
     def is_displayed(player: Player):
-        if player.in_round(1).amountEmissionsRisky == player.participant.outcomeCarbon and player.in_round(1).amountEmissionsSafe == 0 :
+        if player.in_round(1).Exp_Con == 1: 
             return False
         if player.participant.reversedbuttons == False:
+            return False
+        if player.amountEmissionsRisky == player.participant.outcomeCarbon and player.amountEmissionsSafe == 0 :
             return False
         return True
     
@@ -247,7 +259,8 @@ class Preview_Game2(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
-        carbonB = player.participant.outcomeCarbon
+        outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -259,7 +272,8 @@ class Preview_Game2(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB
+                'outcomeCarbon': outcomeCarbon,
+                'carbonMiles': carbonMiles
             }
     @staticmethod
     def is_displayed(player: Player):
@@ -276,7 +290,8 @@ class Preview_GameR2(Page):
     def vars_for_template(player: Player):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
-        carbonB = player.participant.outcomeCarbon
+        outcomeCarbon = player.participant.outcomeCarbon
+        carbonMiles = outcomeCarbon * 4
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -288,7 +303,8 @@ class Preview_GameR2(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB
+                'outcomeCarbon': outcomeCarbon,
+                'carbonMiles': carbonMiles
             }
     @staticmethod
     def is_displayed(player: Player):

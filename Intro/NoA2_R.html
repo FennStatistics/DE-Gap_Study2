@@ -18,9 +18,11 @@
         </div>
 
 
-   <div>
-    <p> Below is a preview of the game. Please note that if you choose <b> Option A, it will cause {{outcomeCarbon}}kg of carbon (CO2) emissions. </b> Choosing <b>Option B, will not cause any carbon emissions.</b> While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </p> 
-   </div>
+        <div  style="padding-top: 20pt;">
+            <p> Below is a preview of the game. Please note that if you choose <b>Option A, it will cause {{outcomeCarbon}}kg of carbon (CO2) emissions. </b> Choosing <b>Option B, will not cause any carbon emissions. </b></p> 
+
+                <p> While this is just a rough estimate, <b>you can think about {{outcomeCarbon}}kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </p> 
+        </div>
     
   
 
@@ -89,17 +91,12 @@
     {{ formfield_errors "amountEmissionsRisky2" }}
     
  
-    
-
-
-
     <div class="next-btn">
         <div style="float: right; padding-top: 5vh;">
             {% next_button %}
         </div>
     </div>
       
-
 
     
 

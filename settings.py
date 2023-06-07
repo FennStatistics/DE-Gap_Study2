@@ -16,24 +16,21 @@ SESSION_CONFIGS = [
 
     dict(
         name='DEG_study2_EmissionsSalient',
-        app_sequence=[ 'Intro','EDEG', 'Scales',], 
+        app_sequence=['Intro', 'EDEG', 'Scales',], 
         num_demo_participants=5,
-        Exp_Con=2,
-        reversedbuttons = True,
+        Exp_Con=2
     ),
     dict(
         name='DEG_study2_EmissionsDecay',
         app_sequence=[ 'Intro','EDEG', 'Scales',], 
         num_demo_participants=5,
-        Exp_Con=3,
-        reversedbuttons = True,
+        Exp_Con=3
     ),
     dict(
         name='DEG_study2_Control',
         app_sequence=[ 'Intro','EDEG', 'Scales',], 
         num_demo_participants=5,
         Exp_Con=1,
-        reversedbuttons = True,
         doc="""
          Edit the 'num_apples' parameter to change the factor by which
          contributions to the group are multiplied.
@@ -75,7 +72,7 @@ SESSION_FIELDS = [
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = False
 
 ROOMS = [

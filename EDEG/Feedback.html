@@ -11,7 +11,7 @@
 <body>
    
     
-    <div class="feedback" style="font-size:13pt; text-align: justify;">
+    <div class="" style="font-size:13pt; text-align: justify;">
                 <!-- <div style='font-size:12'> -->
 
                 <h4> Results from the Previous Round</h4>
@@ -23,19 +23,19 @@
                     {%endif%} <span class="prev_outcome"></span> points </strong> and caused 
                     
                     {% if previous_choice == "A" %}
-                        <strong> {{ C.carbonA }} kg of CO2 emissions.</strong>
+                        <strong> {{ C.carbonA }}kg of CO2 emissions.</strong>
                         Had you chosen Option B, you would have 
-                        {% if previous_outcomeB < 0 %} lost 20
-                        {% else %} gained 2 
-                        {%endif%} points and caused {{carbonB}} kg of CO2 emissions.            
+                        {% if previous_outcomeB < 0 %} lost
+                        {% else %} gained 
+                        {%endif%} {{previous_outcomeB | to0}} points and caused {{carbonB}}kg of CO2 emissions.            
                     {% endif %}
                         
                     {% if previous_choice == "B" %}
-                        <strong> {{ carbonB }} kg of CO2 emissions</strong>.
+                        <strong> {{ carbonB }}kg of CO2 emissions</strong>.
                         Had you chosen Option A, you would have 
                         {% if previous_outcomeA < 0 %} lost 
                         {% else %} gained
-                        {%endif%} {{previous_outcomeA}} points and caused {{C.carbonA}} kg of CO2 emissions. <br>       
+                        {%endif%}{{previous_outcomeA | to0}} points and caused {{C.carbonA}}kg of CO2 emissions. <br>       
                     {% endif %}
                 
 
@@ -47,9 +47,9 @@
                     
                     {% if previous_choice == "A" %}
                         Had you chosen Option B, you would have 
-                        {% if previous_outcomeB < 0 %} lost 20
-                        {% else %} gained 2
-                        {%endif%} points.    
+                        {% if previous_outcomeB < 0 %} lost
+                        {% else %} gained
+                        {%endif%} {{previous_outcomeB | to0}} points.    
                            <!-- it used to be {{previous_outcomeA}}  but that did not work with the negative sign--></0>        
                     {% endif %}
                         
@@ -57,7 +57,7 @@
                         Had you chosen Option A, you would have 
                         {% if previous_outcomeA < 0 %} lost 
                         {% else %} gained
-                        {%endif%} {{previous_outcomeA}} points. <br>       
+                        {%endif%} {{previous_outcomeA | to0}} points. <br>       
                     {% endif %}
                 {% endif %}
 
@@ -90,9 +90,9 @@
                                 <tr id="outcomesrow">
                                     <td style="text-align: center;">The outcomes were:</td>
                                     {% if previous_outcomeA < 0 %} <td style="font-size:16pt; background-color: none; text-align: center;">
-                                    {% if previous_choice == "A" %} <strong>{% endif %}&nbsp;{{ previous_outcomeA }} points
+                                    {% if previous_choice == "A" %} <strong>{% endif %}&nbsp;{{ previous_outcomeA | to0}} points
                                     {%else%} <td style="font-size:16pt; background-color:none; text-align: center;">
-                                    {% if previous_choice == "A" %} <strong>{% endif %}&nbsp;{{ previous_outcomeA}} points
+                                    {% if previous_choice == "A" %} <strong>{% endif %}&nbsp;{{ previous_outcomeA | to0}} points
                                     {% endif %} </td></strong>
         
                                     {% if previous_outcomeB < 0 %} <td style="font-size:16pt; background-color: none; text-align: center;">{% if
@@ -144,8 +144,8 @@
     lottery_a_lo = "{{ C.low_lottery }}";
     lottery_b_hi = "{{ C.safe_outcome }}";
     lottery_b_lo = "{{ C.safe_outcome }}";
-    previous_outcome= "{{previous_outcome}}";
-    previous_outcome_abs = Math.abs(Number(previous_outcome))
+    previous_outcome= "{{previous_outcome | to0}}";
+    previous_outcome_abs = Math.round(Math.abs(Number(previous_outcome)))
 
    
     enablebtn = function () {

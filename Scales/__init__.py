@@ -19,8 +19,8 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = None
     ROUNDS_PER_CONDITION = 1
     NUM_ROUNDS = 1
-    STARTING_PAYMENT = 20
-    PAYRATIO = 20 
+    STARTING_PAYMENT = 1
+    PAYRATIO = 200 
     carbonA = 0
 
 class Subsession(BaseSubsession):
@@ -151,27 +151,32 @@ class Trust(Page):
 class End(Page):
     @staticmethod
     def vars_for_template(player: Player):
-        chosen_round_outcome = player.participant.chosen_round_outcome
-        chosen_round_choice = player.participant.chosen_round_choice
+        choicedict = {"A": "B", "B": "A"}
         chosen_round = player.participant.chosen_round
-        Exp_Con = player.participant.Exp_Con
-        payoff_decimal = player.participant.payoff_decimal
-        player.payoff = chosen_round_outcome / C.PAYRATIO
-        payoff_decimal = 1 + chosen_round_outcome / C.PAYRATIO 
-        player.random_bonus = cu(1 + chosen_round_outcome / C.PAYRATIO )
-        player.participant.finished = True
-        player.participant.payoff = player.random_bonus
+        chosen_round_outcome = player.participant.chosen_round_outcome
+        chosen_round_choice = player.participant.chosen_round_choice  ### in our logic where a is always safe and b is always risky 
+        # in the way it was depicted to participants (depending on reversedbuttons true or false)
+        chosen_round_choice_present = chosen_round_choice if player.participant.reversedbuttons == False else choicedict[chosen_round_choice]
         carbonB = player.participant.outcomeCarbon
+
+        Exp_Con = player.participant.Exp_Con
+        player.participant.finished = True
+
+        player.random_bonus = cu(C.STARTING_PAYMENT + chosen_round_outcome / C.PAYRATIO )
+        
+        
         return {
             'chosen_round_outcome': chosen_round_outcome,
-            'starting_payment': C.STARTING_PAYMENT,
-            'payratio': C.PAYRATIO,
+            #'starting_payment': C.STARTING_PAYMENT,
+            #'payratio': C.PAYRATIO,
             'chosen_round': chosen_round,
+            'chosen_round_choice_present': chosen_round_choice_present,
             'chosen_round_choice': chosen_round_choice,
             'Exp_Con' : Exp_Con,
             'player.payoff' : player.payoff,
-            'payoff_decimal': payoff_decimal,
-            'carbonB': carbonB
+            'random_bonus': player.random_bonus,
+            'carbonB': carbonB, 
+            'reversedbuttons': player.participant.reversedbuttons
             
         }
 
@@ -185,11 +190,11 @@ class betweenGames(Page):
 
 
 page_sequence = [
-    betweenGames,
-    Main_A,
-    Demographics,
-    CCConcern,
-    Pol_Att,
+    #betweenGames,
+    #Main_A,
+    #Demographics,
+    #CCConcern,
+    #Pol_Att,
     ####Conservative,
     Trust,
     End

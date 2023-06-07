@@ -17,14 +17,16 @@
             <p style="text-align: left; font-size: 0.9rem;">
                 Round number {{game_round}} out of {{C.NUM_ROUNDS}} in this game.
             </p>
-            <p class="" style="padding-bottom:20px;">
+            <div class="" style="padding-bottom:20px;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
                 {% if game_round > 5 %} 
-                    Please choose one of the options. <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </span>
+                <p> Please choose one of the options.</p> <span class="Exp_Con"><p>While this is just a rough estimate, <b>you can think about {{carbonB}} kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </p> </span>
                 {%else%}
-                    Please choose one of the options.  If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option A emits {{C.carbonA}} kg of CO2 equivalents. </span> If you choose Option B, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option B emits {{carbonB}} kg of CO2 equivalents. <b> While this is just a rough estimate, you can think about 10kg CO2 as being equivalent to travelling 40 miles in an average passenger car.</b> </span>
+                <p> Please choose one of the options.</p>  
+                <p> If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option A emits {{C.carbonA}} kg of CO2 equivalents.  </span> </p> 
+                <p> If you choose Option B, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option B emits {{carbonB}} kg of CO2 equivalents. </span> </p> <b> <p> <span class="Exp_Con"> While this is just a rough estimate, you can think about {{carbonB}} kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </span> </p>
                 {%endif%}  
-            </p>
+            </div>
             <table style=" width:100%" class="table" id="choicetable">
                 <tbody>
                     <tr style="font-weight: bold;"> <th> </th> <td> Option A </td> <td> Option B </td></tr>
