@@ -77,6 +77,10 @@
   display: none;
 }
 
+.Exp_Con_all {
+  display: none;
+}
+
 .rotate {
   transform: rotate(60deg) translate(9px,-13px);
   /* Legacy vendor prefixes that you probably don't need... */

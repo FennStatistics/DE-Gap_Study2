@@ -14,7 +14,7 @@
 
 <body>
     <div class="att-box"> 
-        Your last answer was not accurate. Please enter a number only. Please take some time to read the description and make you answer correctly. 
+        Your last answer was not accurate. Please enter a number only. Please take some time to read everything and make sure you answer correctly. 
         </div>
 
 
@@ -115,9 +115,21 @@
     lottery_b_lo = "{{ C.safe_outcome }}";
 
    
-    window.onload = function () {
-                // edit the timeout to 1200 or more!!!!
+    activate_Exp_Con = function(){
+                if(Exp_Con == 2) {
+                    $('.Exp_Con').css("display", "revert")
+                }
+        }
+
+    activate_Exp_Con_all = function(){
+                if(Exp_Con > 1) {
+                    $('.Exp_Con_all').css("display", "revert")
+                }
     }
+    window.onload = function () {
+                activate_Exp_Con();
+                activate_Exp_Con_all();
+        }
 </script>
 
 

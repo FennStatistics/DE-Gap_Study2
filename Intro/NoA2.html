@@ -16,7 +16,7 @@
 
 <body>
     <div class="att-box"> 
-        Your last answer was not accurate. Please enter a number only. Please take some time to read the description and make you answer correctly. 
+        Your last answer was not accurate. Please enter a number only. Please take some time to read everything and make sure you answer correctly. 
     </div>
 
 
@@ -33,7 +33,7 @@
             <p class="" style="padding-bottom:20px; font:grey;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
                 
-                    Please choose one of the options.  If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b>If you choose Option B, you will have a 90% chance of <b>winning {{C.high_lottery}} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b> 
+                    Please choose one of the options.  If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> If you choose Option B, you will have a 90% chance of <b>winning {{C.high_lottery}} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b> 
               
             </p>
             <table style=" width:100%" class="table" id="choicetable">
@@ -43,6 +43,10 @@
                     <tr>
                         <th> Payoff</th> <td> Get <span class="point_span">{{ C.safe_outcome }}</span> points for sure</td> <td>   <span > Get <span class="point_span">{{ C.high_lottery }}</span> points with <span class="point_span">90%</span> probability </span> <br>  <span> Get <span class="point_span">{{ C.low_lottery }}</span> points with <span class="point_span">10%</span> probability </span> </td>
                     </tr>
+
+                    <tr class="Exp_Con" style="border-color: white;">
+                        <th  > Emissions</th> <td> Emit <span class="point_span">{{C.carbonA}}</span> kg CO2 </td> <td> Emit <span class="point_span">{{outcomeCarbon}}</span> kg CO2</td> 
+                    </tr>      
                    
                         
 
@@ -112,6 +116,23 @@
     lottery_a_lo = "{{ C.low_lottery }}";
     lottery_b_hi = "{{ C.safe_outcome }}";
     lottery_b_lo = "{{ C.safe_outcome }}";
+
+
+    activate_Exp_Con = function(){
+                if(Exp_Con == 2) {
+                    $('.Exp_Con').css("display", "revert")
+                }
+        }
+
+    activate_Exp_Con_all = function(){
+                if(Exp_Con > 1) {
+                    $('.Exp_Con_all').css("display", "revert")
+                }
+    }
+    window.onload = function () {
+                activate_Exp_Con();
+                activate_Exp_Con_all();
+        }
 </script>
 
 
