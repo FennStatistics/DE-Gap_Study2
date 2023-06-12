@@ -20,11 +20,11 @@
             <div class="" style="padding-bottom:20px;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
                 {% if game_round > 5 %} 
-                <p> Please choose one of the options.</p> <span class="Exp_Con"><p>While this is just a rough estimate, <b>you can think about {{carbonB}} kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </p> </span>
+                <p> Please choose one of the options.</p> <span class="Exp_Con"><p>While this is just a rough estimate, <b>you can think about {{carbonB}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b> </p> </span>
                 {%else%}
                 <p> Please choose one of the options.</p>  
-                <p> If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option A emits {{C.carbonA}} kg of CO2 equivalents.  </span> </p> 
-                <p> If you choose Option B, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option B emits {{carbonB}} kg of CO2 equivalents. </span> </p> <b> <p> <span class="Exp_Con"> While this is just a rough estimate, you can think about {{carbonB}} kg CO2 as being equivalent to travelling {{carbonMiles}} miles in an average passenger car.</b> </span> </p>
+                <p> If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option A emits {{C.carbonA}} lbs of CO2 equivalents.  </span> </p> 
+                <p> If you choose Option B, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b>  <span class="Exp_Con"> Option B emits {{carbonB}} lbs of CO2 equivalents. </span> </p> <b> <p> <span class="Exp_Con"> While this is just a rough estimate, you can think about {{carbonB}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b> </span> </p>
                 {%endif%}  
             </div>
             <table style=" width:100%" class="table" id="choicetable">
@@ -35,7 +35,7 @@
                         <th> Payoff</th> <td> Get <span class="point_span">{{ C.safe_outcome }}</span> points for sure</td> <td>   <span > Get <span class="point_span">{{ C.high_lottery }}</span> points with <span class="point_span">90%</span> probability </span> <br>  <span> Get <span class="point_span">{{ C.low_lottery }}</span> points with <span class="point_span">10%</span> probability </span> </td>
                     </tr>
                     <tr class="Exp_Con" style="border-color: white;">
-                        <th  > Emissions</th> <td> Emit <span class="point_span">{{C.carbonA}}</span> kg CO2 </td> <td> Emit <span class="point_span">{{carbonB}}</span> kg CO2</td> 
+                        <th  > Emissions</th> <td> Emit <span class="point_span">{{C.carbonA}}</span> lbs CO2 </td> <td> Emit <span class="point_span">{{carbonB}}</span> lbs CO2</td> 
                     </tr>
                         
 

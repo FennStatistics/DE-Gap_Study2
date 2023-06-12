@@ -23,19 +23,19 @@
                     {%endif%} <span class="prev_outcome"></span> points </strong> and caused 
                     
                     {% if previous_choice == "A" %}
-                        <strong> {{ C.carbonA }}kg of CO2 emissions.</strong>
+                        <strong> {{ C.carbonA }} lbs of CO2 emissions.</strong>
                         Had you chosen Option B, you would have 
                         {% if previous_outcomeB < 0 %} lost
                         {% else %} gained 
-                        {%endif%} {{previous_outcomeB | to0}} points and caused {{carbonB}}kg of CO2 emissions.            
+                        {%endif%} {{previous_outcomeB | to0}} points and caused {{carbonB}} lbs of CO2 emissions.            
                     {% endif %}
                         
                     {% if previous_choice == "B" %}
-                        <strong> {{ carbonB }}kg of CO2 emissions</strong>.
+                        <strong> {{ carbonB }} lbs of CO2 emissions</strong>.
                         Had you chosen Option A, you would have 
                         {% if previous_outcomeA < 0 %} lost 
                         {% else %} gained
-                        {%endif%}{{previous_outcomeA | to0}} points and caused {{C.carbonA}}kg of CO2 emissions. <br>       
+                        {%endif%}{{previous_outcomeA | to0}} points and caused {{C.carbonA}} lbs of CO2 emissions. <br>       
                     {% endif %}
                 
 
@@ -107,11 +107,11 @@
                                 <tr id="emissionoutcomesrow" class="Exp_Con">
                                     <td style="text-align: center;">The emissions were:</td>
                                     <td style="font-size:16pt; background-color: none; text-align: center;">
-                                    {% if previous_choice == "A" %}<strong>{% endif %}&nbsp; {{C.carbonA}} kg CO2  &nbsp;
+                                    {% if previous_choice == "A" %}<strong>{% endif %}&nbsp; {{C.carbonA}} lbs CO2  &nbsp;
                                     </td></strong>
         
                                     <td style="font-size:16pt; background-color: none; text-align: center;">
-                                    {% if previous_choice == "B" %}<strong>{% endif %}&nbsp;{{ carbonB }} kg CO2 &nbsp;
+                                    {% if previous_choice == "B" %}<strong>{% endif %}&nbsp;{{ carbonB }} lbs CO2 &nbsp;
                                         </td></strong>
                                     </td>
                                 </tr>

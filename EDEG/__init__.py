@@ -18,7 +18,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'EDEG'
     PLAYERS_PER_GROUP = None
     ROUNDS_PER_CONDITION = 10
-    NUM_ROUNDS = 4
+    NUM_ROUNDS = 40
     STARTING_PAYMENT = 1
     PAYRATIO = 200
     MINIMUM_PAYMENT = 0
@@ -104,7 +104,7 @@ class Main(Page):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
         carbonB = player.participant.outcomeCarbon
-        carbonMiles = carbonB * 4
+        carbonMiles = carbonB * 20/11
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -116,8 +116,8 @@ class Main(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB,
-                'carbonMiles': carbonMiles
+                'carbonB': carbonB ,
+                'carbonMiles': carbonMiles 
             }
     @staticmethod
     def is_displayed(player: Player):
@@ -137,7 +137,7 @@ class Main_R(Page):
         Exp_Con = player.participant.Exp_Con
         reversedbuttons = player.participant.reversedbuttons
         carbonB = player.participant.outcomeCarbon
-        carbonMiles = carbonB * 4
+        carbonMiles = carbonB * 20/11
         game_round = (
                 player.round_number
                 - int((player.round_number - 1) / C.ROUNDS_PER_CONDITION)
@@ -149,7 +149,7 @@ class Main_R(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB': carbonB,
+                'carbonB': carbonB ,
                 'carbonMiles': carbonMiles
             }
     @staticmethod
@@ -202,7 +202,7 @@ class Feedback(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonB' : player.participant.outcomeCarbon
+                'carbonB' : player.participant.outcomeCarbon 
             }
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -251,7 +251,7 @@ class Feedback_R(Page):
                 'game_round': game_round,
                 'gamenum': int((player.round_number - 1) / C.ROUNDS_PER_CONDITION) + 1,
                 'lastRB': reversedbuttons,
-                'carbonA' : player.participant.outcomeCarbon,
+                'carbonA' : player.participant.outcomeCarbon ,
                 'carbonB' : C.carbonA
             }
     @staticmethod

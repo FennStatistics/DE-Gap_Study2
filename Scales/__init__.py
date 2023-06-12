@@ -50,18 +50,14 @@ class Player(BasePlayer):
     ccc2 = make_field('Climate protection is important for our future.')
     ccc3 = make_field('I worry about the climate’s state.')
     ccc4 = make_field('Climate change has severe consequences for humans and nature.')
-    ccc5 = make_field('Climate protection measures are determined by a few powerful persons; as a single citizen, I have no effect.') ## powerlessness 5 items
-    ccc6 = make_field('With my behavior, I cannot influence the climate, as, in fact, it rests in the hands of the industry.')
-    ccc7 = make_field('As an ordinary citizen, I can influence governmental decisions regarding climate protection.')
-    ccc8 = make_field('I feel able to contribute to climate protection.')
     att_ccc = make_field('In this row, please mark the third circle (center circle) to indicate you are paying attention.')
-    ccc9 = make_field('If I tried to behave in a climate-friendly way, that would surely have a positive effect on the climate.')
     ccc10 = make_field('Climate change and its consequences are being exaggerated in the media.')     ### skepticism 6 items 
     ccc11 = make_field('Climate change is a racket.')
     ccc12 = make_field('As long as meteorologists are not even able to accurately forecast weather, climate cannot be reliably predicted either.')
     ccc13 = make_field('There are larger problems than climate protection.')
-    ccc14 = make_field('The impacts of climate change are unpredictable; thus, my climate-friendly behavior is futile.')
-    ccc15 = make_field('Climate protection needlessly impedes economic growth.')
+    ccc14 = make_field('I do not feel threatened by climate change.')
+    ccc15 = make_field('The impacts of climate change are unpredictable; thus, my climate-friendly behavior is futile.')
+    ccc16 = make_field('Climate protection needlessly impedes economic growth.')
     ind1 = make_field('The government interferes far too much in our everyday lives.')
     ind2 = make_field('I feel that people who are successful in business have a right to enjoy their wealth as they see fit.')
     ind3 = make_field('Too many people expect society to do things for them that they should be doing for themselves.')
@@ -100,8 +96,6 @@ class Main_A(Page):
     @staticmethod
     def vars_for_template(player: Player):
         Exp_Con = player.participant.Exp_Con
-        game_round = player.participant.game_rounds + 1
-        game_rounds = player.participant.game_rounds
         player.chosen_round_outcome = player.participant.chosen_round_outcome
         player.chosen_round_choice = player.participant.chosen_round_choice
         player.chosen_round = player.participant.chosen_round
@@ -110,9 +104,7 @@ class Main_A(Page):
         player.reversedbuttons = player.participant.reversedbuttons
         return {
                 #'game': game,
-                'Exp_Con': Exp_Con,
-                'game_round': game_round,
-                'game_rounds': game_rounds
+                'Exp_Con': Exp_Con
             }
 
 
@@ -124,7 +116,7 @@ class Demographics(Page):
     
 class CCConcern(Page):
     form_model = 'player'
-    form_fields= ['ccc1', 'ccc2', 'ccc3', 'ccc4','ccc5', 'ccc6', 'ccc7', 'ccc8', 'att_ccc', 'ccc9', 'ccc10', 'ccc11', 'ccc12', 'ccc13', 'ccc14', 'ccc15'  ]
+    form_fields= ['ccc1', 'ccc2', 'ccc3', 'ccc4', 'att_ccc', 'ccc10', 'ccc11', 'ccc12', 'ccc13', 'ccc14', 'ccc15', 'ccc16'  ]
 
       
 class Pol_Att(Page):
@@ -190,11 +182,11 @@ class betweenGames(Page):
 
 
 page_sequence = [
-    #betweenGames,
-    #Main_A,
-    #Demographics,
-    #CCConcern,
-    #Pol_Att,
+    betweenGames,
+    Main_A,
+    Demographics,
+    CCConcern,
+    Pol_Att,
     ####Conservative,
     Trust,
     End
