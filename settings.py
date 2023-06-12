@@ -9,9 +9,17 @@ from os import environ
 
 SESSION_CONFIGS = [
      dict(
-        name='DEG_study2', 
+        name='DEG_study_FullDesing_Reps', 
         app_sequence=[ 'Intro','EDEG', 'Scales',], 
-        num_demo_participants=5
+        num_demo_participants=5, 
+        group = "reps"
+    ),
+
+      dict(
+        name='DEG_study2_FullDesign_Dems', 
+        app_sequence=[ 'Intro','EDEG', 'Scales',], 
+        num_demo_participants=5, 
+        group = "dems"
     ),
 
     dict(

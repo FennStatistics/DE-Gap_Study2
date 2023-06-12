@@ -168,7 +168,8 @@ class End(Page):
             'player.payoff' : player.payoff,
             'random_bonus': player.random_bonus,
             'carbonB': carbonB, 
-            'reversedbuttons': player.participant.reversedbuttons
+            'reversedbuttons': player.participant.reversedbuttons,
+            'PoliticalGroup': player.session.config['group']
             
         }
 

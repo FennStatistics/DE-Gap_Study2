@@ -49,9 +49,9 @@ class Player(BasePlayer):
 
 def creating_session(subsession: Subsession):
     import itertools
-    conditions = itertools.cycle([1,2,3])
+    conditions = itertools.cycle([1, 2, 2, 3, 3])
     reverse_display = itertools.cycle([True, False, False, True])
-    amount_carbon = itertools.cycle([11,11, 55, 55])
+    amount_carbon = itertools.cycle([11, 55])
     # randomize to treatments
     for player in subsession.get_players():
         if subsession.round_number == 1:
