@@ -17,7 +17,7 @@ Description Experience Gap with Carbon Externalities
 class C(BaseConstants):
     NAME_IN_URL = 'EDEG'
     PLAYERS_PER_GROUP = None
-    ROUNDS_PER_CONDITION = 10
+    ROUNDS_PER_CONDITION = 40
     NUM_ROUNDS = 40
     STARTING_PAYMENT = 1
     PAYRATIO = 200
