@@ -18,29 +18,28 @@
     <div>
         <p> Below is a preview of the game.</p>
         <p class="Exp_Con_all"> Please note that choosing <b>Option A, will not cause any carbon emissions.</b>
-            If you choose <b> Option B, it will cause {{outcomeCarbon}} pounds of carbon (CO2) emissions. </b> </p> 
+            If you choose <b> Option B, it will cause {{outcomeCarbon}} pounds of carbon (CO2) emissions </b>   ({{outcomeCarbon}} lbs ≈ <span id ="carbonMetric"></span> metric kilos). </p>
             
-            <p class="Exp_Con_all"> While this is just a rough estimate, <b>you can think about {{outcomeCarbon}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b> </p> 
+            <p class="Exp_Con_all"> While this is just a rough estimate, <b>you can think about {{outcomeCarbon}} lbs CO2  as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b> </p> 
     </div>
    
-    <div class="No-label" style="color: grey; background-color: antiquewhite; padding:3vw; 
-    box-shadow: 1pt 1pt 2pt 2pt rosybrown; margin-bottom: 10pt;">       
+    <div class="No-label" style="color: grey; background-color: antiquewhite;  padding:min(4vw, 20pt);     box-shadow: 1pt 1pt 2pt 2pt rosybrown; margin-bottom: 10pt;">       
       <h3> Please make a choice</h3>
             <p class="" style="padding-bottom:20px; font:grey;">
                 <!-- Please choose one of the options. /your preferred option  edit text  -->
                 
-                    Please choose one of the options.  If you choose Option A, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> If you choose Option B, you will have a 90% chance of <b>winning {{C.high_lottery}} points</b> and a 10% chance of loosing <b> {{ C.low_lottery }} points.</b> 
+                    Please choose one of the options.  If you choose Option A, you will <b> gain {{ C.safe_outcome }} points.</b> If you choose Option B, you will have a 90% chance to <b>gain {{C.high_lottery}} points</b> and a 10% chance to <b>lose {{ C.low_lottery }} points.</b> 
               
             </p>
             <table style=" width:100%" class="table" id="choicetable">
                 <tbody>
-                    <tr style="font-weight: bold;"> <th> </th> <td> Option A <span class="badge bg-primary"> No emissions</span></td> <td> Option B <span class="badge bg-secondary"> CO2 emissions</span> </td></tr>
+                    <tr style="font-weight: bold;"> <th> </th> <td> Option A <span class="badge bg-primary"> No emissions</span></td> <td> Option B <span class="badge bg-secondary">{{outcomeCarbon}} lbs CO2 emissions</span> </td></tr>
                     
                     <tr>
                         <th> Payoff</th> <td> Get <span class="point_span">{{ C.safe_outcome }}</span> points for sure</td> <td>   <span > Get <span class="point_span">{{ C.high_lottery }}</span> points with <span class="point_span">90%</span> probability </span> <br>  <span> Get <span class="point_span">{{ C.low_lottery }}</span> points with <span class="point_span">10%</span> probability </span> </td>
                     </tr>
                    
-                    <tr class="Exp_Con" style="border-color: white;">
+                    <tr class="Exp_Con_all" style="border-color: white;">
                         <th  > Emissions</th> <td> Emit <span class="point_span">{{C.carbonA}}</span> lbs CO2 </td> <td> Emit <span class="point_span">{{outcomeCarbon}}</span> lbs CO2</td> 
                     </tr>      
 
@@ -106,7 +105,7 @@
 <script>
     Exp_Con = "{{Exp_Con}}"
     num_choices = "{{ C.NUM_ROUNDS }}";
-    lottery_a_hi = "{{ C.high_lottery }}";
+    carbonMetric = Math.round("{{ outcomeCarbon }}"/2.2);
     lottery_a_lo = "{{ C.low_lottery }}";
     lottery_b_hi = "{{ C.safe_outcome }}";
     lottery_b_lo = "{{ C.safe_outcome }}";
@@ -125,6 +124,7 @@
     window.onload = function () {
                 activate_Exp_Con();
                 activate_Exp_Con_all();
+                $('#carbonMetric').html(carbonMetric)
         }
 </script>
 

@@ -25,8 +25,13 @@
                  <p>Please choose one of the options.</p>  <span class="Exp_Con"> While this is just a rough estimate, <b>you can think about {{carbonB}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b> </span>
                 {%else%}
                  <p> Please choose one of the options. </p> 
-                 <p> If you choose Option A, you will have a 90% chance of <b>winning {{ C.high_lottery }} points</b> and a 10% chance of <b>loosing {{ C.low_lottery }}&nbsp;points.</b>  <span class="Exp_Con"> Option A emits {{carbonB}} lbs of CO2 equivalents. </span> </p>
-                 <p> If you choose Option B, you will have a safe <b>win of {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} lbs of CO2 equivalents. </span> </p> <p>  <span class="Exp_Con">  While this is just a rough estimate, <b>you can think about {{carbonB}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b>  </span> </p>
+                 <p> If you choose Option A, you will have a 90% chance to <b>gain {{ C.high_lottery }} points</b> and a 10% chance to <b>lose {{ C.low_lottery }}&nbsp;points.</b>  <span class="Exp_Con"> Option A emits {{carbonB}} lbs of CO2 equivalents. </span> </p>
+                 <p> If you choose Option B, you will <b> gain {{ C.safe_outcome }} points.</b> <span class="Exp_Con"> Option B emits {{C.carbonA}} lbs of CO2 equivalents. </span> </p> <p>  <span class="Exp_Con">  While this is just a rough estimate, <b>you can think about {{carbonB}} lbs CO2 as being equivalent to travelling {{carbonMiles | to0}} miles in an average passenger car.</b>  </span> </p>
+                 {% if game_round == 1 %} 
+                        {% if Exp_Con == 3 %} 
+                        <p> Please bear in mind that Option A entails carbon emissions ({{carbonB}} lbs CO2, which is around {{carbonMiles | to0}} miles in an average passenger car). No emissions will be caused by Option B. You will not be reminded about the carbon emissions in the following rounds, but we will realize the emissions following your choice of a randomly drawn round at the end of the study.</p>
+                        {% endif %}
+                    {% endif %}
                 {%endif%}  
             </div>
             <table style=" width:100%" class="table" id="choicetable">
